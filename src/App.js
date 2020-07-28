@@ -9,15 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
  * uppercase as they are representing a "constant" value.
  */
 
-const addNewToDo = () => {
+const addNewToDo = toDoContent => {
   return{
-    type: 'ADD_NEW_TO_DO'
+    type: 'ADD_NEW_TO_DO', // Our Action "label"
+    value: toDoContent // we can also transport necessary info that the reducer might need.
   }
 }
 
-const removeToDo = () => {
+const removeToDo = toDoId => {
   return{
-    type: 'REMOVE_TO_DO'
+    type: 'REMOVE_TO_DO' , // Our Action "label"
+    value: toDoId  // For removal, we need a unique identifier.
   }
 }
 
@@ -26,14 +28,28 @@ const removeToDo = () => {
  * A reducer will actually carry out the manipulation/mutation on the state data.
  *It should expect an "action" to be passed in with any necessary target data to perform its duty.
  */
-const toDoReducer = ( state,action ) => {
+const toDoReducer = ( state = [], action ) => { // Default state is an empty array here.
 
     switch ( action.type )
     {
+      //What happens if we are adding a new to-do:
       case 'ADD_NEW_TO_DO' :
-      
+        // Set up new task.
+        const newTask = {
+          uniqueId: uuidv4(), // Ensure a unique ID.
+          value: action.value // Read current "new todo" value.
+        };
+        // Add this task to the state.
+        state.push ( newTask );
+        // Return the updated state value.
+        return state;
 
+      // What happens if we are removing an existing to-do:
       case 'REMOVE_TO_DO'  :
+        // Returns a Filtered version of the array, leaving only the items that DIDN'T match the "id" parameter.
+        const state = state.filter( toDo => toDo.uniqueId !== action.value); // we'll have an array without the target!
+        // Return the updated state value.
+        return state;
     }
 
 }
