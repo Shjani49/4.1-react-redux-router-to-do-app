@@ -6,8 +6,7 @@ class ToDo extends React.Component{
     {
         return ( 
             <li>
-                Shivani!
-
+                {this.props.text}
             </li>
         );
     }
