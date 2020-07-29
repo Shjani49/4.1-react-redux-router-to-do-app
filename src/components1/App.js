@@ -1,7 +1,7 @@
 import React from 'react';
 import { addNewToDo, removeToDo } from '../actions/todos';
 import { connect } from 'react-redux';
-import ToDo from './ToDO';
+import ToDo from './ToDo';
 
 class App extends React.Component
 {
@@ -37,11 +37,7 @@ class App extends React.Component
     this.setState( {[key]: value} );
   }
 
-  removeToDo ( id )
-  {
-    //Using Dispatch with our remove action.
-    this.props.dispatch ( removeToDo ( id ) );
-  }
+ 
     
 
   render ()
@@ -65,7 +61,7 @@ class App extends React.Component
         <h2>Current To-Dos:</h2>
         <ul>
           {this.props.toDos.map( toDo => ( // global data access using props..We can use .map to "loop" through our array contents. Great for outputting something like these ToDos. 
-          <ToDo key = {toDo.uniqueId} text = {toDo.value} />
+          <ToDo key = {toDo.uniqueId} uniqueId = { toDo.uniqueId} text = {toDo.value} />
 
            
             
